@@ -77,5 +77,12 @@ function renderQuestions() {
     } 
 }
 
+function nextQuestion(event) {
+    if(event.target.matches("button"))
+}
+
 // Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
+
+// Event listener for click on start quiz button
+startBtn.addEventListener("click", nextQuestion);
