@@ -62,10 +62,9 @@ function renderQuestions() {
     for (let i = 0; i < questions.length; i++) {
         const question = questions[i].question;
         questionsEl.setAttribute("class", "start");
-        questionTitleEl.textContent = question;
-        
-    }
-    
+        questionTitleEl.textContent = question;    
+    } 
 }
 
+// Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
