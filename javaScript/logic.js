@@ -12,12 +12,13 @@ let questionTitleEl = document.querySelector("#question-title")
 // Selects the div element that houses the answer choices questions
 let choicesEl = document.querySelector("#choices")
 
+
 let questions = [
-    {question:'Is she a cow?', value:'cow'},
-    {question:'Is she a sheep?', value:'sheep'},
-    {question:'Is she a lion?', value:'lion'},
-    {question:'Is she a monkey?', value:'monkey'},
-    {question:'Is she a tiger?', value:'tiger'}
+    {question:'Is she a cow?', answer:'cow', options:['cow', 'sheep', 'lion', 'tiger']},
+    {question:'Is she a sheep?', answer:'sheep', options:['cow', 'sheep', 'lion', 'tiger']},
+    // {question:'Is she a lion?', answer:'lion', options:['cow', 'sheep', 'lion', 'tiger']},
+    // {question:'Is she a monkey?', answer:'monkey', options:['cow', 'sheep', 'lion', 'tiger']},
+    // {question:'Is she a tiger?', answer:'tiger', options:['cow', 'sheep', 'lion', 'tiger']}
 ]
 
 let options = [
@@ -61,8 +62,18 @@ function startQuiz() {
 function renderQuestions() {
     for (let i = 0; i < questions.length; i++) {
         const question = questions[i].question;
+        const answer = questions[i].options;
         questionsEl.setAttribute("class", "start");
-        questionTitleEl.textContent = question;    
+        questionTitleEl.textContent = question; 
+        choicesEl.innerHTML = ""
+        for (let i = 0; i < answer.length; i++) {
+            const element = answer[i];
+            // creates the button element that houses the choices 
+            let optionBtn = document.createElement("button")
+            optionBtn.textContent = element;
+            choicesEl.appendChild(optionBtn);
+        }
+        
     } 
 }
 
