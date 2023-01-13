@@ -13,11 +13,11 @@ let questionTitleEl = document.querySelector("#question-title")
 let choicesEl = document.querySelector("#choices")
 
 let questions = [
-    {question1:'Is she a cow?', value:'cow'},
-    {question2:'Is she a sheep?', value:'sheep'},
-    {question3:'Is she a lion?', value:'lion'},
-    {question4:'Is she a monkey?', value:'monkey'},
-    {question5:'Is she a tiger?', value:'tiger'}
+    {question:'Is she a cow?', value:'cow'},
+    {question:'Is she a sheep?', value:'sheep'},
+    {question:'Is she a lion?', value:'lion'},
+    {question:'Is she a monkey?', value:'monkey'},
+    {question:'Is she a tiger?', value:'tiger'}
 ]
 
 let options = [
@@ -54,13 +54,15 @@ function startQuiz() {
     setTime();
     // remove start screen content
     startScreen.setAttribute("class", "hide");
+    renderQuestions();
 }
 
 // Function to display questions
 function renderQuestions() {
     for (let i = 0; i < questions.length; i++) {
-        const question = questions[i][0];
-        questionTitleEl.textContent = "question";
+        const question = questions[i].question;
+        questionsEl.setAttribute("class", "start");
+        questionTitleEl.textContent = question;
         
     }
     
