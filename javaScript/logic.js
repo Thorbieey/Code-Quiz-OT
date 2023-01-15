@@ -116,7 +116,16 @@ function submitInitials() {
     if (initials === "") {
         return;
     }
-    
+    // restart question count
+    questionIndex = 0;
+    // clear player score
+    score = 0;
+    // clear initials input
+    initials = "";
+    // remove end screen
+    endScreenDiv.setAttribute("class", "hide");
+    // display start screeen
+    startScreen.setAttribute("class", "start");
 }
 
 // Event listener for click on start quiz button
@@ -126,4 +135,4 @@ startBtn.addEventListener("click", startQuiz);
 questionsDiv.addEventListener("click", nextQuestion);
 
 // Event listener for click on submit button to save high score
-submitBtn.addEventListener("click", );
+submitBtn.addEventListener("click", submitInitials);
