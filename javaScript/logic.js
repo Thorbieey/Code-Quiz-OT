@@ -91,6 +91,7 @@ function nextQuestion(event) {
         else{
             console.log("Incorrect answer");
         }
+        console.log(score);
         questionIndex++;
         renderQuestions();
     }
@@ -98,8 +99,9 @@ function nextQuestion(event) {
 
 // Function to end quiz
 function endQuiz() {
-    endScreenDiv.setAttribute("class", "display");
-
+    questionsDiv.setAttribute("class", "hide");
+    endScreenDiv.setAttribute("class", "start");
+    finalScoreSpan.textContent = score;
 }
 
 // Event listener for click on start quiz button
