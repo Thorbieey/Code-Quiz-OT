@@ -53,34 +53,41 @@ function startQuiz() {
 }
 
 // Function to display questions
-function renderQuestions() {
-    const question = questions[questionIndex].question;
-    const answer = questions[questionIndex].options;
+function renderQuestions() { 
     questionsEl.setAttribute("class", "start");
-    questionTitleEl.textContent = question; 
     choicesEl.innerHTML = ""
-    for (let i = 0; i < answer.length; i++) {
-        const element = answer[i];
-        // creates the button element that houses the choices 
-        let optionBtn = document.createElement("button")
-        // Display numbered choices 
-        optionBtn.textContent = [i+1] + ". " + element;
-        choicesEl.appendChild(optionBtn);
+    if(questionIndex == questions.length){
+        console.log("No more Questions");
     }
+    else{
+        const question = questions[questionIndex].question;
+        const answer = questions[questionIndex].options;
+        questionTitleEl.textContent = question; 
+        for (let i = 0; i < answer.length; i++) {
+            // creates the button element that houses the choices 
+            let optionBtn = document.createElement("button")
+            // Display numbered choices 
+            optionBtn.textContent = answer[i];
+            choicesEl.appendChild(optionBtn);
+            console.log(questionIndex);
+            console.log(questions.length);
+        }
+    }
+    
 }
 
 // Function to display next question
 function nextQuestion(event) {
     if(event.target.matches("button")){
         if (event.target.textContent === questions[questionIndex].answer){
-            console.log(event.target.textContent)
+            console.log(event.target)
             questionIndex++;
             console.log(questionIndex);
             console.log("Correct answer");
             renderQuestions();
         }
         else{
-            console.log(event.target.textContent)
+            console.log(event.target)
             questionIndex++;
             console.log(questionIndex);
             console.log("Incorrect answer");
