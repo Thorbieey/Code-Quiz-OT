@@ -5,12 +5,18 @@ let timerEl = document.querySelector("#time");
 let startBtn = document.querySelector("#start")
 // Selects start screen content
 let startScreen = document.querySelector("#start-screen")
-// Selects the div element that houses the questions
-let questionsEl = document.querySelector("#questions")
+// Selects the div element that houses the questions and choices
+let questionsDiv = document.querySelector("#questions")
 // Selects the element that displays the question
 let questionTitleEl = document.querySelector("#question-title")
-// Selects the div element that houses the answer choices questions
+// Selects the div element that displays the choices 
 let choicesEl = document.querySelector("#choices")
+// Selects the div element that displays the end quiz screen
+let endScreenDiv = document.querySelector("#end-screen")
+// Selects the p-span element that displays the final score
+let finalScoreSpan = document.querySelector("#final-score")
+// stores players score
+let score = 0;
 
 
 let questions = [
@@ -54,10 +60,11 @@ function startQuiz() {
 
 // Function to display questions
 function renderQuestions() { 
-    questionsEl.setAttribute("class", "start");
-    choicesEl.innerHTML = ""
+    questionsDiv.setAttribute("class", "start");
+    choicesEl.innerHTML = "";
     if(questionIndex == questions.length){
         console.log("No more Questions");
+        endQuiz();
     }
     else{
         const question = questions[questionIndex].question;
@@ -69,8 +76,6 @@ function renderQuestions() {
             // Display numbered choices 
             optionBtn.textContent = answer[i];
             choicesEl.appendChild(optionBtn);
-            console.log(questionIndex);
-            console.log(questions.length);
         }
     }
     
@@ -80,30 +85,25 @@ function renderQuestions() {
 function nextQuestion(event) {
     if(event.target.matches("button")){
         if (event.target.textContent === questions[questionIndex].answer){
-            console.log(event.target)
-            questionIndex++;
-            console.log(questionIndex);
-            console.log("Correct answer");
-            renderQuestions();
+            score++;
+            console.log("Correct answer");     
         }
         else{
-            console.log(event.target)
-            questionIndex++;
-            console.log(questionIndex);
             console.log("Incorrect answer");
-            renderQuestions();
         }
-        
+        questionIndex++;
+        renderQuestions();
     }
 }
 
 // Function to end quiz
-function endQuiz(params) {
-    
+function endQuiz() {
+    endScreenDiv.setAttribute("class", "display");
+
 }
 
 // Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
 
 // Event listener for click on an answer button to move to next question
-questionsEl.addEventListener("click", nextQuestion);
+questionsDiv.addEventListener("click", nextQuestion);
