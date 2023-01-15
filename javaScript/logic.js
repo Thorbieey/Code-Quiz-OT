@@ -63,11 +63,13 @@ function renderQuestions() {
         const element = answer[i];
         // creates the button element that houses the choices 
         let optionBtn = document.createElement("button")
-        optionBtn.textContent = element;
+        // Display numbered choices 
+        optionBtn.textContent = [i+1] + ". " + element;
         choicesEl.appendChild(optionBtn);
     }
 }
 
+// Function to display next question
 function nextQuestion(event) {
     if(event.target.matches("button")){
         if (event.target.textContent === questions[questionIndex].answer){
@@ -86,6 +88,11 @@ function nextQuestion(event) {
         }
         
     }
+}
+
+// Function to end quiz
+function endQuiz(params) {
+    
 }
 
 // Event listener for click on start quiz button
