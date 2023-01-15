@@ -32,10 +32,10 @@ let questions = [
 
 let questionIndex = 0;
 
+// Set time for quiz to 100s
+let secondsLeft = 100;
 // Function to set timer countdown
 function setTime() {
-    // Set time for quiz to 100s
-    let secondsLeft = 5;
     // sets timer interval to 1s/1000ms
     let timerInterval = setInterval(function() { 
     // removes 1 from displayed time left for quiz
@@ -92,6 +92,7 @@ function nextQuestion(event) {
             console.log("Correct answer");     
         }
         else{
+            secondsLeft -= 10;
             console.log("Incorrect answer");
         }
         console.log(score);
