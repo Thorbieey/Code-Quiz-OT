@@ -16,18 +16,12 @@ let choicesEl = document.querySelector("#choices")
 let questions = [
     {question:'Is she a cow?', answer:'cow', options:['cow', 'sheep', 'lion', 'tiger']},
     {question:'Is she a sheep?', answer:'sheep', options:['cow', 'sheep', 'lion', 'tiger']},
-    // {question:'Is she a lion?', answer:'lion', options:['cow', 'sheep', 'lion', 'tiger']},
-    // {question:'Is she a monkey?', answer:'monkey', options:['cow', 'sheep', 'lion', 'tiger']},
-    // {question:'Is she a tiger?', answer:'tiger', options:['cow', 'sheep', 'lion', 'tiger']}
+    {question:'Is she a lion?', answer:'lion', options:['cow', 'sheep', 'lion', 'tiger']},
+    {question:'Is she a monkey?', answer:'monkey', options:['cow', 'sheep', 'lion', 'tiger']},
+    {question:'Is she a tiger?', answer:'tiger', options:['cow', 'sheep', 'lion', 'tiger']}
 ]
 
-let options = [
-    {1:'cow', 2:'sheep', 3:'lion', 4:'tiger'},
-    {1:'cow', 2:'sheep', 3:'lion', 4:'tiger'},
-    {1:'cow', 2:'sheep', 3:'lion', 4:'tiger'},
-    {1:'cow', 2:'monkey', 3:'lion', 4:'tiger'},
-    {1:'cow', 2:'sheep', 3:'lion', 4:'tiger'}
-]
+let questionIndex = 0;
 
 // Function to set timer countdown
 function setTime() {
@@ -60,29 +54,42 @@ function startQuiz() {
 
 // Function to display questions
 function renderQuestions() {
-    for (let i = 0; i < questions.length; i++) {
-        const question = questions[i].question;
-        const answer = questions[i].options;
-        questionsEl.setAttribute("class", "start");
-        questionTitleEl.textContent = question; 
-        choicesEl.innerHTML = ""
-        for (let i = 0; i < answer.length; i++) {
-            const element = answer[i];
-            // creates the button element that houses the choices 
-            let optionBtn = document.createElement("button")
-            optionBtn.textContent = element;
-            choicesEl.appendChild(optionBtn);
-        }
-        
-    } 
+    const question = questions[questionIndex].question;
+    const answer = questions[questionIndex].options;
+    questionsEl.setAttribute("class", "start");
+    questionTitleEl.textContent = question; 
+    choicesEl.innerHTML = ""
+    for (let i = 0; i < answer.length; i++) {
+        const element = answer[i];
+        // creates the button element that houses the choices 
+        let optionBtn = document.createElement("button")
+        optionBtn.textContent = element;
+        choicesEl.appendChild(optionBtn);
+    }
 }
 
 function nextQuestion(event) {
-    if(event.target.matches("button"))
+    if(event.target.matches("button")){
+        if (event.target.textContent === questions[questionIndex].answer){
+            console.log(event.target.textContent)
+            questionIndex++;
+            console.log(questionIndex);
+            console.log("Correct answer");
+            renderQuestions();
+        }
+        else{
+            console.log(event.target.textContent)
+            questionIndex++;
+            console.log(questionIndex);
+            console.log("Incorrect answer");
+            renderQuestions();
+        }
+        
+    }
 }
 
 // Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
 
-// Event listener for click on start quiz button
-startBtn.addEventListener("click", nextQuestion);
+// Event listener for click on an answer button to move to next question
+questionsEl.addEventListener("click", nextQuestion);
