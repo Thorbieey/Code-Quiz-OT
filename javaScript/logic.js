@@ -1,8 +1,9 @@
 // Selects timer div element by id
 let timerEl = document.querySelector("#time");
-
-// Selects start button element by id
+// Selects start button at quiz start
 let startBtn = document.querySelector("#start")
+// Selects submit button to save initials at quiz end
+let submitBtn = document.querySelector("#submit")
 // Selects start screen content
 let startScreen = document.querySelector("#start-screen")
 // Selects the div element that houses the questions and choices
@@ -17,6 +18,8 @@ let endScreenDiv = document.querySelector("#end-screen")
 let finalScoreSpan = document.querySelector("#final-score")
 // stores players score
 let score = 0;
+// selects the input for entered players initials to save hight score
+let initialsInput = document.querySelector("#initials")
 
 
 let questions = [
@@ -104,8 +107,23 @@ function endQuiz() {
     finalScoreSpan.textContent = score;
 }
 
+// Function to submit quiz
+function submitInitials() {
+    let initials = initialsInput.value;
+    console.log(initials)
+
+    // Return from function early if submitted initials is blank
+    if (initials === "") {
+        return;
+    }
+    
+}
+
 // Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
 
 // Event listener for click on an answer button to move to next question
 questionsDiv.addEventListener("click", nextQuestion);
+
+// Event listener for click on submit button to save high score
+submitBtn.addEventListener("click", );
