@@ -14,6 +14,8 @@ let questionTitleEl = document.querySelector("#question-title")
 let choicesEl = document.querySelector("#choices")
 // Selects the div element that displays the end quiz screen
 let endScreenDiv = document.querySelector("#end-screen")
+// Selects the div element that displays the end screen heading text
+let endScreenH2 = document.querySelector("#status")
 // Selects the p-span element that displays the final score
 let finalScoreSpan = document.querySelector("#final-score")
 // stores players score
@@ -23,19 +25,21 @@ let initialsInput = document.querySelector("#initials")
 
 
 let questions = [
-    {question:'Is she a cow?', answer:'cow', options:['cow', 'sheep', 'lion', 'tiger']},
-    {question:'Is she a sheep?', answer:'sheep', options:['cow', 'sheep', 'lion', 'tiger']},
-    {question:'Is she a lion?', answer:'lion', options:['cow', 'sheep', 'lion', 'tiger']},
-    {question:'Is she a monkey?', answer:'monkey', options:['cow', 'sheep', 'lion', 'tiger']},
-    {question:'Is she a tiger?', answer:'tiger', options:['cow', 'sheep', 'lion', 'tiger']}
+    {question:'Inside which HTML element do we put the JavaScript?', answer:'script', options:['JS', 'JavaScript', 'script', 'scripting']},
+    {question:'Which operator returns true if the two compared values are not equal?', answer:'!==', options:['<>', '==!', '~', '!==']},
+    {question:'How is a forEach statement different from a for statement?', answer:'A for statement is generic, but a forEach statement can be used only with an array.', options:['Only a for statement uses a callback function.', 'A for statement is generic, but a forEach statement can be used only with an array.', 'Only a forEach statement lets you specify your own iterator.', 'A forEach statement is generic, but a for statement can be used only with an array.']},
+    {question:'Which statement is the correct way to create a variable called rate and assign it the value 100?', answer:'let rate = 100;', options:['let rate = 100;', 'let 100 = rate;', '100 = let rate;', 'rate = 100;']},
+    {question:'Which property references the DOM object that dispatched an event?', answer:'target', options:['self', 'object', 'target', 'source']}
 ]
 
 let questionIndex = 0;
 
 // Set time for quiz to 100s
-let secondsLeft = 105;
+let deductTime;
 // Function to set timer countdown
 function setTime() {
+    // Set time for quiz to 100s
+    let secondsLeft = 20;  
     // sets timer interval to 1s/1000ms
     let timerInterval = setInterval(function() { 
     // removes 1 from displayed time left for quiz
@@ -46,6 +50,8 @@ function setTime() {
     if(secondsLeft === 0) {
         // stops timer when time runs out
         clearInterval(timerInterval);
+        // set end quiz h2 text
+        endScreenH2.textContent = "Time's Up!"
         // end quiz on time running out
         endQuiz();
         console.log("Thanks for playing!");
@@ -55,7 +61,13 @@ function setTime() {
         clearInterval(timerInterval);
         console.log("Thanks for playing!");
     }
-
+    else if (deductTime === true){
+        // remove 10s from time left
+        secondsLeft -= 10;
+        console.log("Minus 10s");
+    }
+    // reset deduct time to false
+    deductTime = false;
   }, 1000);
 }
 
@@ -74,6 +86,9 @@ function renderQuestions() {
     choicesEl.innerHTML = "";
     if(questionIndex == questions.length){
         console.log("No more Questions");
+        // set end quiz h2 text
+        endScreenH2.textContent = "All done!"
+        // end quiz on all questions answered
         endQuiz();
     }
     else{
@@ -99,7 +114,7 @@ function nextQuestion(event) {
             console.log("Correct answer");     
         }
         else{
-            secondsLeft -= 10;
+            deductTime = true;
             console.log("Incorrect answer");
         }
         console.log(score);
@@ -115,7 +130,7 @@ function endQuiz() {
     // display end screen
     endScreenDiv.setAttribute("class", "start");
     // set final score in page-paragraph content
-    finalScoreSpan.textContent = score;
+    finalScoreSpan.textContent = score + "/" + questions.length;
 }
 
 // Function to submit quiz
@@ -132,6 +147,8 @@ function submitInitials() {
     // clear player score
     score = 0;
     // clear initials input
+    initials = "";
+    // reset timer 
     initials = "";
     // remove end screen
     endScreenDiv.setAttribute("class", "hide");
