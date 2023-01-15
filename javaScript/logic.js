@@ -33,7 +33,7 @@ let questions = [
 let questionIndex = 0;
 
 // Set time for quiz to 100s
-let secondsLeft = 100;
+let secondsLeft = 5;
 // Function to set timer countdown
 function setTime() {
     // sets timer interval to 1s/1000ms
@@ -46,7 +46,9 @@ function setTime() {
     if(secondsLeft === 0) {
         // stops execution of action when time runs out
         clearInterval(timerInterval);
-        console.log("Thanks for playing!")
+        // end quiz on time running out
+        endQuiz();
+        console.log("Thanks for playing!");
       }
 
   }, 1000);
@@ -103,9 +105,14 @@ function nextQuestion(event) {
 
 // Function to end quiz
 function endQuiz() {
+    // hide questions display
     questionsDiv.setAttribute("class", "hide");
+    // display end screen
     endScreenDiv.setAttribute("class", "start");
+    // set final score in page-paragraph content
     finalScoreSpan.textContent = score;
+    // reset timer
+    secondsLeft = 0;
 }
 
 // Function to submit quiz
