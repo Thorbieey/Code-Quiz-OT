@@ -2,8 +2,6 @@
 let timerEl = document.querySelector("#time");
 // Selects start button at quiz start
 let startBtn = document.querySelector("#start")
-// Selects submit button to save initials at quiz end
-let submitBtn = document.querySelector("#submit")
 // Selects start screen content
 let startScreen = document.querySelector("#start-screen")
 // Selects the div element that houses the questions and choices
@@ -18,17 +16,18 @@ let endScreenDiv = document.querySelector("#end-screen")
 let endScreenH2 = document.querySelector("#status")
 // Selects the p-span element that displays the final score
 let finalScoreSpan = document.querySelector("#final-score")
-// stores players score
-let score = 0;
+// Selects submit button to save initials at quiz end
+let submitBtn = document.querySelector("#submit")
 // selects the input for entered players initials to save hight score
 let initialsInput = document.querySelector("#initials");
+
+// stores players score
+let score = 0;
 // stores highscores: Initials and score
 let highscore = [
-    initial = [], 
-    score = []
+    initials = [], 
+    scores = []
 ];
-
-
 let questions = [
     {question:'Inside which HTML element do we put the JavaScript?', answer:'script', options:['JS', 'JavaScript', 'script', 'scripting']},
     {question:'Which operator returns true if the two compared values are not equal?', answer:'!==', options:['<>', '==!', '~', '!==']},
@@ -36,17 +35,16 @@ let questions = [
     {question:'Which statement is the correct way to create a variable called rate and assign it the value 100?', answer:'let rate = 100;', options:['let rate = 100;', 'let 100 = rate;', '100 = let rate;', 'rate = 100;']},
     {question:'Which property references the DOM object that dispatched an event?', answer:'target', options:['self', 'object', 'target', 'source']}
 ];
-
-
 // stores position of question during quiz
 let questionIndex = 0;
-
 // Set time for quiz to 100s
 let deductTime;
+
+
 // Function to set timer countdown
 function setTime() {
     // Set time for quiz to 100s
-    let secondsLeft = 5;  
+    let secondsLeft = 55;  
     // sets timer interval to 1s/1000ms
     let timerInterval = setInterval(function() { 
     // removes 1 from displayed time left for quiz
@@ -54,19 +52,19 @@ function setTime() {
     // sets content of timer to time left
     timerEl.textContent = secondsLeft;
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
         // stops timer when time runs out
         clearInterval(timerInterval);
         // set end quiz h2 text
         endScreenH2.textContent = "Time's Up!"
+        // sets timer to zero
+        timerEl.textContent = "0";
         // end quiz on time running out
         endQuiz();
-        console.log("Thanks for playing!");
     }
     else if (endScreenDiv.getAttribute("class") === "start"){
         // stops timer on end quiz
         clearInterval(timerInterval);
-        console.log("Thanks for playing!");
     }
     else if (deductTime === true){
         // remove 10s from time left
@@ -80,16 +78,24 @@ function setTime() {
 
 // Function to handle start quiz click
 function startQuiz() {
+    // get stored highscore from localStorage
+    let storedHighscore = JSON.parse(localStorage.getItem("highscore")); 
+    // if highscores had beeen previously stored, update the higscores array
+    if (storedHighscore !== null) {
+        highscore = storedHighscore;
+    }
     // start timer countdown
     setTime();
-    // remove start screen content
-    startScreen.setAttribute("class", "hide");
-    init();
+    renderQuestions();
 }
 
 // Function to display questions
 function renderQuestions() { 
+    // remove start screen content
+    startScreen.setAttribute("class", "hide");
+    // display questions on page
     questionsDiv.setAttribute("class", "start");
+    // reset choices element
     choicesEl.innerHTML = "";
     if(questionIndex == questions.length){
         console.log("No more Questions");
@@ -116,7 +122,7 @@ function renderQuestions() {
 // Function to display next question
 function nextQuestion(event) {
     if(event.target.matches("button")){
-        if (event.target.textContent === questions[questionIndex].answer){
+        if (event.target.textContent == questions[questionIndex].answer){
             score++;
             console.log("Correct answer");     
         }
@@ -124,7 +130,6 @@ function nextQuestion(event) {
             deductTime = true;
             console.log("Incorrect answer");
         }
-        
         // change displayed question to next question
         questionIndex++;
         // display question
@@ -147,20 +152,18 @@ function endQuiz() {
 // Function to submit initials
 function submitInitials() {
     let initials = initialsInput.value;
-    console.log(initials);
-    
     // Return from function early if submitted initials is blank
     if (initials === "") {
         return;
     }
     // store score in highscore array
-    highscore[0].push(score);
+    highscore[1].push(score);
     // clear player score
     score = 0;
     // store initials in highscore array
-    highscore[1].push(initials);
+    highscore[0].push(initials);
     // clear initials input
-    initials = "";
+    initialsInput.value = "";
     // remove end screen
     endScreenDiv.setAttribute("class", "hide");
     // display start screeen
@@ -168,21 +171,12 @@ function submitInitials() {
     storeHighscore();
 }
 
-function init() {
-    // get stored highscore from localStorage
-    let storedHighscore = JSON.parse(localStorage.getItem("highscore")); 
-    // If highscores had beeen previously stored, update the higscores array
-    if (storedHighscore !== null) {
-        highscore = storedHighscore;
-    }
-
-    // Render questions
-    renderQuestions();
-}
-
+// function to store player highscores
 function storeHighscore() {
-// store highscore in local storage
-localStorage.setItem("highscore", JSON.stringify(highscore));
+    // store highscore in local storage
+    localStorage.setItem("highscore", JSON.stringify(highscore));
+    // sets timer to zero
+    timerEl.textContent = "0";
 };
 
 
