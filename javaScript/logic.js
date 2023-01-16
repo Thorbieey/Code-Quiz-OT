@@ -20,6 +20,8 @@ let finalScoreSpan = document.querySelector("#final-score")
 let submitBtn = document.querySelector("#submit")
 // selects the input for entered players initials to save hight score
 let initialsInput = document.querySelector("#initials");
+// selects the element that shows feddbak
+let feedbackDiv = document.querySelector("#feedback");
 
 // stores players score
 let score = 0;
@@ -89,6 +91,8 @@ function renderQuestions() {
     startScreen.setAttribute("class", "hide");
     // display questions on page
     questionsDiv.setAttribute("class", "start");
+    // display feedback on page
+    feedbackDiv.setAttribute("class", "feedback");
     // reset choices element
     choicesEl.innerHTML = "";
     if(questionIndex == questions.length){
@@ -115,15 +119,29 @@ function renderQuestions() {
 
 // Function to display next question
 function nextQuestion(event) {
+    // create p element to feedback choice correctness
+    let feedbackEl = document.createElement("p");
+    feedbackDiv.appendChild(feedbackEl); 
+    // if a choice button is selected
     if(event.target.matches("button")){
+        // increase score if correct answer is selsected
         if (event.target.textContent.slice(3) == questions[questionIndex].answer){
             score++;
-            console.log("Correct answer");     
+            // Alert player of correct choice
+            feedbackEl.textContent = "Correct answer";
+            setTimeout(function(){
+                feedbackEl.textContent = "";
+            }, 1000);  
         }
+        // deduct from time if wrong answer is selsected
         else{
             deductTime = true;
-            console.log("Incorrect answer");
-        }
+            // Alert player of correct choice
+            feedbackEl.textContent = "Incorrect answer";
+            setTimeout(function(){
+                feedbackEl.textContent = "";
+            }, 1000); 
+        }          
         // change displayed question to next question
         questionIndex++;
         // display question
@@ -135,6 +153,8 @@ function nextQuestion(event) {
 function endQuiz() {
     // hide questions display
     questionsDiv.setAttribute("class", "hide");
+    // hide feedback display
+    feedbackDiv.setAttribute("class", "hide");
     // display end screen
     endScreenDiv.setAttribute("class", "start");
     // set final score in page-paragraph content
