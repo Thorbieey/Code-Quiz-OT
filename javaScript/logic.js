@@ -18,10 +18,13 @@ let endScreenH2 = document.querySelector("#status")
 let finalScoreSpan = document.querySelector("#final-score")
 // Selects submit button to save initials at quiz end
 let submitBtn = document.querySelector("#submit")
-// selects the input for entered players initials to save hight score
+// Selects the input for entered players initials to save hight score
 let initialsInput = document.querySelector("#initials");
-// selects the element that shows feddbak
+// Selects the element that shows feedback
 let feedbackDiv = document.querySelector("#feedback");
+// stores audio effects
+let correctAudio = new Audio('../sfx/correct.wav');
+let incorrectAudio = new Audio('../sfx/incorrect.wav');
 
 // stores players score
 let score = 0;
@@ -65,7 +68,6 @@ function setTime() {
     else if (deductTime === true){
         // remove 10s from time left
         secondsLeft -= 10;
-        console.log("Minus 10s");
     }
     // reset deduct time to false
     deductTime = false;
@@ -96,7 +98,6 @@ function renderQuestions() {
     // reset choices element
     choicesEl.innerHTML = "";
     if(questionIndex == questions.length){
-        console.log("No more Questions");
         // set end quiz h2 text
         endScreenH2.textContent = "All done!"
         // end quiz on all questions answered
@@ -124,19 +125,23 @@ function nextQuestion(event) {
     feedbackDiv.appendChild(feedbackEl); 
     // if a choice button is selected
     if(event.target.matches("button")){
-        // increase score if correct answer is selsected
         if (event.target.textContent.slice(3) == questions[questionIndex].answer){
+            // increase score if correct answer is selected
             score++;
             // Alert player of correct choice
+            // sound effect
+            correctAudio.play();
+            // text effect
             feedbackEl.textContent = "Correct answer";
             setTimeout(function(){
                 feedbackEl.textContent = "";
             }, 1000);  
         }
-        // deduct from time if wrong answer is selsected
         else{
+            // deduct from time if wrong answer is selected
             deductTime = true;
-            // Alert player of correct choice
+            // Alert player of incorrect choice
+            incorrectAudio.play();
             feedbackEl.textContent = "Incorrect answer";
             setTimeout(function(){
                 feedbackEl.textContent = "";
