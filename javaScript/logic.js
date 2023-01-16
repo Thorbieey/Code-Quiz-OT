@@ -106,7 +106,7 @@ function renderQuestions() {
             // creates the button element that houses the choices 
             let optionBtn = document.createElement("button")
             // Display numbered choices 
-            optionBtn.textContent = answer[i];
+            optionBtn.textContent = [i+1] + ". " + answer[i];
             choicesEl.appendChild(optionBtn);
         }
     }
@@ -116,7 +116,7 @@ function renderQuestions() {
 // Function to display next question
 function nextQuestion(event) {
     if(event.target.matches("button")){
-        if (event.target.textContent == questions[questionIndex].answer){
+        if (event.target.textContent.slice(3) == questions[questionIndex].answer){
             score++;
             console.log("Correct answer");     
         }
