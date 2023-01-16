@@ -21,7 +21,12 @@ let finalScoreSpan = document.querySelector("#final-score")
 // stores players score
 let score = 0;
 // selects the input for entered players initials to save hight score
-let initialsInput = document.querySelector("#initials")
+let initialsInput = document.querySelector("#initials");
+// stores highscores: Initials and score
+let highscore = [
+    initial = [], 
+    score = []
+];
 
 
 let questions = [
@@ -30,8 +35,10 @@ let questions = [
     {question:'How is a forEach statement different from a for statement?', answer:'A for statement is generic, but a forEach statement can be used only with an array.', options:['Only a for statement uses a callback function.', 'A for statement is generic, but a forEach statement can be used only with an array.', 'Only a forEach statement lets you specify your own iterator.', 'A forEach statement is generic, but a for statement can be used only with an array.']},
     {question:'Which statement is the correct way to create a variable called rate and assign it the value 100?', answer:'let rate = 100;', options:['let rate = 100;', 'let 100 = rate;', '100 = let rate;', 'rate = 100;']},
     {question:'Which property references the DOM object that dispatched an event?', answer:'target', options:['self', 'object', 'target', 'source']}
-]
+];
 
+
+// stores position of question during quiz
 let questionIndex = 0;
 
 // Set time for quiz to 100s
@@ -39,7 +46,7 @@ let deductTime;
 // Function to set timer countdown
 function setTime() {
     // Set time for quiz to 100s
-    let secondsLeft = 20;  
+    let secondsLeft = 5;  
     // sets timer interval to 1s/1000ms
     let timerInterval = setInterval(function() { 
     // removes 1 from displayed time left for quiz
@@ -77,7 +84,7 @@ function startQuiz() {
     setTime();
     // remove start screen content
     startScreen.setAttribute("class", "hide");
-    renderQuestions();
+    init();
 }
 
 // Function to display questions
@@ -117,8 +124,10 @@ function nextQuestion(event) {
             deductTime = true;
             console.log("Incorrect answer");
         }
-        console.log(score);
+        
+        // change displayed question to next question
         questionIndex++;
+        // display question
         renderQuestions();
     }
 }
@@ -131,30 +140,51 @@ function endQuiz() {
     endScreenDiv.setAttribute("class", "start");
     // set final score in page-paragraph content
     finalScoreSpan.textContent = score + "/" + questions.length;
+    // restart question count
+    questionIndex = 0;
 }
 
-// Function to submit quiz
+// Function to submit initials
 function submitInitials() {
     let initials = initialsInput.value;
-    console.log(initials)
-
+    console.log(initials);
+    
     // Return from function early if submitted initials is blank
     if (initials === "") {
         return;
     }
-    // restart question count
-    questionIndex = 0;
+    // store score in highscore array
+    highscore[0].push(score);
     // clear player score
     score = 0;
+    // store initials in highscore array
+    highscore[1].push(initials);
     // clear initials input
-    initials = "";
-    // reset timer 
     initials = "";
     // remove end screen
     endScreenDiv.setAttribute("class", "hide");
     // display start screeen
     startScreen.setAttribute("class", "start");
+    storeHighscore();
 }
+
+function init() {
+    // get stored highscore from localStorage
+    let storedHighscore = JSON.parse(localStorage.getItem("highscore")); 
+    // If highscores had beeen previously stored, update the higscores array
+    if (storedHighscore !== null) {
+        highscore = storedHighscore;
+    }
+
+    // Render questions
+    renderQuestions();
+}
+
+function storeHighscore() {
+// store highscore in local storage
+localStorage.setItem("highscore", JSON.stringify(highscore));
+};
+
 
 // Event listener for click on start quiz button
 startBtn.addEventListener("click", startQuiz);
