@@ -1,5 +1,63 @@
-# Module 6 Challenge Web APIs: Code Quiz
+# Code Quiz - OT
 
+## Description 
+
+### User Story
+
+```
+AS A coding boot camp students 
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+SO THAT I can gauge my progress compared to my peers
+```
+
+### Acceptance Criteria
+
+```
+* The JavaScript code quiz web application starts the timer and displays first question on click of a start button.
+
+* The questions contain buttons for each answer.
+
+* The next question is displayed when an answer button is clicked.
+
+* Clicking an incorrect answer results in time being substracted from the clock.
+
+* The quiz must end when all questions are answered or the timer reaches 0.
+
+* Players score is displayed at the end of the game with the option to save it with their initials.
+
+```
+
+## Table of Contents
+
+* [Description](#description)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+
+## Usage 
+
+### Deployed Application
+
+* The URL of the deployed application:
+[https://thorbieey.github.io/Password-Generator/](https://thorbieey.github.io/Password-Generator/)
+
+* The URL of the GitHub repository: 
+[https://github.com/Thorbieey/Password-Generator.git](https://github.com/Thorbieey/Password-Generator.git)
+
+#### Screenshot/Demo
+
+![Demo showing web application's appearance and functionality](./images/screenshot-password-generator.png)
+
+## Credits
+
+* [Learn about changing strings to lowercase](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase)
+* [Meet array prototype: **push()**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push#:~:text=The%20push()%20method%20adds,new%20length%20of%20the%20array.)
+* [Meet document method: **querySelector**](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+* [Learn about addEventListener method](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+
+## License
+
+Licensed under the [MIT](https://choosealicense.com/licenses/mit/) license
 ## Your Task
 
 As you proceed in your journey to becoming a front-end web developer, it’s likely that you’ll be asked to complete a coding assessment, perhaps as part of an interview process. A typical coding assessment is a combination of multiple-choice questions and interactive coding challenges. 
