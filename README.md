@@ -46,9 +46,9 @@ SO THAT I can gauge my progress compared to my peers
 * The URL of the GitHub repository: 
 [https://github.com/Thorbieey/Code-Quiz-OT.git](https://github.com/Thorbieey/Code-Quiz-OT.git)
 
-#### Screenshot/Demo
+### Screenshot
 
-Below are demos showing web application's appearance and functionality
+Below are demos showing the web application's appearance and functionality
 
 ![Screenshot 1](./images/demo-code-quiz-1.png)
 ![Screenshot 2](./images/demo-code-quiz-2.png)
