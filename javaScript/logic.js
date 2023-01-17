@@ -43,7 +43,7 @@ let deductTime;
 // Function to set timer countdown
 function setTime() {
     // Set time for quiz to 100s
-    let secondsLeft = 55;  
+    let secondsLeft = 100;  
     // sets timer interval to 1s/1000ms
     let timerInterval = setInterval(function() { 
     // removes 1 from displayed time left for quiz
