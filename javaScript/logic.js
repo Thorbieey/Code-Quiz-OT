@@ -23,8 +23,8 @@ let initialsInput = document.querySelector("#initials");
 // Selects the element that shows feedback
 let feedbackDiv = document.querySelector("#feedback");
 // stores audio effects
-let correctAudio = new Audio('../correct.wav');
-let incorrectAudio = new Audio('../sfx/incorrect.wav');
+let correctAudio = new Audio('correct.wav');
+let incorrectAudio = new Audio('sfx/incorrect.wav');
 
 // stores players score
 let score = 0;
